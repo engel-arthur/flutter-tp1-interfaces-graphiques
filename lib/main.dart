@@ -20,9 +20,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/' : (context) => const ExerciseSelectorPage(),
-        '/profile_card' : (context) => const ProfileCardPage(title: 'TP1 - Profile Card'),
-        '/quiz' : (context) => const QuizPage(),
+        '/': (context) => const ExerciseSelectorPage(),
+        '/profile_card': (context) =>
+            const ProfileCardPage(title: 'TP1 - Profile Card'),
+        '/quiz': (context) => const QuizPage(),
       },
     );
   }

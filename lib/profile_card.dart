@@ -14,28 +14,31 @@ class ProfileCardPage extends StatelessWidget {
       body: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Center(
-            child: ProfileCard(
-                surname: "Engel",
-                name: "Arthur",
-                mail: "arthur.engel@domain.fr",
-                twitter: "@ArthE",
-                imageUrl: "https://source.unsplash.com/random/300×300/?person")),
+            child: SizedBox(
+          width: 350,
+          child: ProfileCard(
+              name: "John",
+              surname: "Doe",
+              mail: "john.doe@domain.fr",
+              twitter: "@JD",
+              imageUrl: "https://source.unsplash.com/random/300×300/?person"),
+        )),
       ),
     );
   }
 }
 
 class ProfileCard extends StatelessWidget {
-  final String surname;
   final String name;
+  final String surname;
   final String mail;
   final String twitter;
   final String imageUrl;
 
   const ProfileCard(
       {Key? key,
-      required this.surname,
       required this.name,
+      required this.surname,
       required this.mail,
       required this.twitter,
       required this.imageUrl})
@@ -45,15 +48,16 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ProfilePicture(imageUrl: imageUrl),
-            ProfileInformation(surname: surname, name: name, mail: mail, twitter: twitter),
-          ],
-        ),
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ProfilePicture(imageUrl: imageUrl),
+          ProfileInformation(
+              name: name, surname: surname, mail: mail, twitter: twitter),
+        ],
+      ),
     ));
   }
 }
@@ -73,15 +77,15 @@ class ProfilePicture extends StatelessWidget {
 }
 
 class ProfileInformation extends StatelessWidget {
-  final String surname;
   final String name;
+  final String surname;
   final String mail;
   final String twitter;
 
   const ProfileInformation(
       {Key? key,
-      required this.surname,
       required this.name,
+      required this.surname,
       required this.mail,
       required this.twitter})
       : super(key: key);
@@ -92,7 +96,7 @@ class ProfileInformation extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.person),
-          title: Text("$surname $name"),
+          title: Text("$name $surname"),
         ),
         ListTile(
           leading: const Icon(Icons.mail),
