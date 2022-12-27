@@ -14,15 +14,13 @@ class ProfileCardPage extends StatelessWidget {
       body: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Center(
-            child: SizedBox(
-          width: 350,
-          child: ProfileCard(
-              name: "John",
-              surname: "Doe",
-              mail: "john.doe@domain.fr",
-              twitter: "@JD",
-              imageUrl: "https://source.unsplash.com/random/300×300/?person"),
-        )),
+            child: ProfileCard(
+                name: "John",
+                surname: "Doe",
+                mail: "john.doe@domain.fr",
+                twitter: "@JD",
+                imageUrl:
+                    "https://source.unsplash.com/random/300×300/?person")),
       ),
     );
   }
@@ -46,19 +44,22 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ProfilePicture(imageUrl: imageUrl),
-          ProfileInformation(
-              name: name, surname: surname, mail: mail, twitter: twitter),
-        ],
-      ),
-    ));
+    return SizedBox(
+      width: 350,
+      child: Card(
+          child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ProfilePicture(imageUrl: imageUrl),
+            ProfileInformation(
+                name: name, surname: surname, mail: mail, twitter: twitter),
+          ],
+        ),
+      )),
+    );
   }
 }
 

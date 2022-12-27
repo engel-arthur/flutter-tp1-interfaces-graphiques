@@ -32,7 +32,7 @@ class _QuizPageState extends State<QuizPage> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            getNextWidget(),
+            Center(child: getNextWidget()),
           ],
         ));
   }
@@ -85,23 +85,21 @@ class QuestionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Card(
-            child: Column(
-              children: [
-                QuestionText(question: question),
-                Image.asset(question.urlImage, width: 300),
-                TrueFalseButtons(
-                    onTrueFunction: onTrueFunction,
-                    onFalseFunction: onFalseFunction)
-              ],
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Card(
+          child: Column(
+            children: [
+              QuestionText(question: question),
+              Image.asset(question.urlImage, width: 300),
+              TrueFalseButtons(
+                  onTrueFunction: onTrueFunction,
+                  onFalseFunction: onFalseFunction)
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -171,12 +169,10 @@ class Results extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(children: [Text("Vous avez marqué $score point(s).")]),
-        ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: [Text("Vous avez marqué $score point(s).")]),
       ),
     );
   }
