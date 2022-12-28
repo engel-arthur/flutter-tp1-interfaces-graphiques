@@ -81,7 +81,7 @@ class _QuizPageState extends State<QuizPage> {
   List<Widget> _generateQuizElements(Question question) {
     List<Widget> widgets = [
       PaddedText(text: question.questionText),
-      Image.asset(question.urlImage, width: MediaQuery.of(context).size.width * 0.3),
+      Image.asset(question.urlImage, width: MediaQuery.of(context).size.width * 0.9, height: MediaQuery.of(context).size.height * 0.5),
       QuizButtons(
         checkAnswer: _checkAnswer,
         incrementQuestionIndex: _incrementQuestionIndex,
