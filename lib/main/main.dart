@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tp1_interfaces_graphiques/exercise_selector.dart';
-import 'package:tp1_interfaces_graphiques/profile_card.dart';
-import 'package:tp1_interfaces_graphiques/quiz.dart';
+import 'package:tp1_interfaces_graphiques/main/exercise_selector.dart';
+import 'package:tp1_interfaces_graphiques/profile_card/profile_card_page.dart';
+import 'package:tp1_interfaces_graphiques/quiz/quiz_page.dart';
 
 void main() {
   runApp(const MyApp());
