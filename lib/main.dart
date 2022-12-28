@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp1_interfaces_graphiques/exercise_selector.dart';
 import 'package:tp1_interfaces_graphiques/profile_card.dart';
-import 'package:tp1_interfaces_graphiques/quizz.dart';
+import 'package:tp1_interfaces_graphiques/quiz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ExerciseSelectorPage(),
         '/profile_card': (context) =>
-            const ProfileCardPage(title: 'TP1 - Profile Card'),
+            const ProfileCardPage(),
         '/quiz': (context) => const QuizPage(),
       },
     );

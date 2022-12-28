@@ -11,76 +11,92 @@ class _QuizPageState extends State<QuizPage> {
   final questions = [
     Question(
         urlImage: 'assets/images/doudou.jpg',
-        questionText: "Cette photo représente un chien",
-        isCorrect: true),
+        questionText: "Ceci est un chien",
+        isCorrect: false,
+        answerText: "Faux. Ceci n'est pas un chien"),
     Question(
         urlImage: 'assets/images/algebra.jpg',
         questionText: "2+2 font 5",
-        isCorrect: false),
+        isCorrect: true,
+        answerText:
+            "Vrai. En prenant en compte la marge d'erreur, 2+2 font 5."),
     Question(
         urlImage: 'assets/images/eiffel.jpeg',
         questionText: "Paris se situe en France",
-        isCorrect: true)
+        isCorrect: false,
+        answerText: "Faux. Paris Hilton réside en amérique.")
   ];
   int questionIndex = 0;
   int score = 0;
+  bool answered = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Exemple')),
+        appBar: AppBar(title: const Text('TP1 - Quizz')),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: getNextWidget()),
+            Center(child: _getNextWidget()),
           ],
         ));
   }
 
-  void _onTrueFunction() {
-    if (questions[questionIndex].isCorrect) {
+  void _checkAnswer(bool answer) {
+    if (!answered && questions[questionIndex].isCorrect == answer) {
       setState(() {
         score++;
       });
     }
     setState(() {
-      questionIndex++;
+      answered = true;
     });
   }
 
-  void _onFalseFunction() {
-    if (!questions[questionIndex].isCorrect) {
+  void _incrementQuestionIndex() {
+    if(answered) {
       setState(() {
-        score++;
+        answered = false;
+        questionIndex++;
       });
     }
-    setState(() {
-      questionIndex++;
-    });
   }
 
-  Widget getNextWidget() {
+  Widget _getNextWidget() {
     if (questionIndex < questions.length) {
       return QuestionBox(
-          question: questions[questionIndex],
-          onTrueFunction: _onTrueFunction,
-          onFalseFunction: _onFalseFunction);
+        question: questions[questionIndex],
+        generateQuizElements: _generateQuizElements,
+      );
     } else {
-      return Results(score: score);
+      return ResultsBox(score: score);
     }
+  }
+
+  List<Widget> _generateQuizElements(Question question) {
+    List<Widget> widgets = [
+      PaddedText(text: question.questionText),
+      Image.asset(question.urlImage, width: 300),
+      QuizButtons(
+        checkAnswer: _checkAnswer,
+        incrementQuestionIndex: _incrementQuestionIndex,
+      )
+    ];
+    if(answered) {
+      widgets.add(PaddedText(text: question.answerText));
+    }
+    return widgets;
   }
 }
 
 class QuestionBox extends StatelessWidget {
   final Question question;
-  final Function onTrueFunction;
-  final Function onFalseFunction;
+  final Function generateQuizElements;
 
   const QuestionBox(
       {Key? key,
       required this.question,
-      required this.onTrueFunction,
-      required this.onFalseFunction})
+      required this.generateQuizElements})
       : super(key: key);
 
   @override
@@ -90,13 +106,7 @@ class QuestionBox extends StatelessWidget {
       children: [
         Card(
           child: Column(
-            children: [
-              QuestionText(question: question),
-              Image.asset(question.urlImage, width: 300),
-              TrueFalseButtons(
-                  onTrueFunction: onTrueFunction,
-                  onFalseFunction: onFalseFunction)
-            ],
+            children: generateQuizElements(question)
           ),
         ),
       ],
@@ -108,36 +118,40 @@ class Question {
   String urlImage;
   String questionText;
   bool isCorrect;
+  String answerText;
 
   Question(
       {required this.urlImage,
       required this.questionText,
-      required this.isCorrect});
+      required this.isCorrect,
+      required this.answerText});
 }
 
-class QuestionText extends StatelessWidget {
-  const QuestionText({
+class PaddedText extends StatelessWidget {
+  const PaddedText({
     Key? key,
-    required this.question,
+    required this.text,
   }) : super(key: key);
 
-  final Question question;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(question.questionText),
+      child: Text(text),
     );
   }
 }
 
-class TrueFalseButtons extends StatelessWidget {
-  final Function onTrueFunction;
-  final Function onFalseFunction;
+class QuizButtons extends StatelessWidget {
+  final Function checkAnswer;
+  final Function incrementQuestionIndex;
 
-  const TrueFalseButtons(
-      {Key? key, required this.onTrueFunction, required this.onFalseFunction})
+  const QuizButtons(
+      {Key? key,
+      required this.checkAnswer,
+      required this.incrementQuestionIndex})
       : super(key: key);
 
   @override
@@ -147,25 +161,31 @@ class TrueFalseButtons extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            onTrueFunction();
+            checkAnswer(true);
           },
           child: const Text("Vrai"),
         ),
         ElevatedButton(
           onPressed: () {
-            onFalseFunction();
+            checkAnswer(false);
           },
           child: const Text("Faux"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            incrementQuestionIndex();
+          },
+          child: const Icon(Icons.arrow_right),
         )
       ],
     );
   }
 }
 
-class Results extends StatelessWidget {
+class ResultsBox extends StatelessWidget {
   final int score;
 
-  const Results({Key? key, required this.score}) : super(key: key);
+  const ResultsBox({Key? key, required this.score}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

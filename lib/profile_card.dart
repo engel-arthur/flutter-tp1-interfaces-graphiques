@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProfileCardPage extends StatelessWidget {
-  final String title;
-
-  const ProfileCardPage({Key? key, required this.title}) : super(key: key);
+  const ProfileCardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: const Text('TP1 - Profile Card'),
       ),
       body: const Padding(
         padding: EdgeInsets.all(8.0),
